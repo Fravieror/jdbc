@@ -18,4 +18,7 @@ public class PersonJpaRepository {
     public Person findByID(int id) {
         return entityManager.find(Person.class, id);
     }
+    public Person update(Person person){
+        return entityManager.merge(person); // If exist the Id into person update if not insert
+    }
 }
