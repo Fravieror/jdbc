@@ -3,7 +3,7 @@ package com.database.databasedemo.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@Entity // When you are using in-memory database it automatically creates this key for us.
 @Table(name="person") // This annotation indicates what is the name of the table in the DB.
 // This is not necessary if tha table name matches with the name of class.
 public class Person {

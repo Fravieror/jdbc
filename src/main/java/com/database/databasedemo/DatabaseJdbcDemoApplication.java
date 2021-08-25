@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Date;
 
-@SpringBootApplication
-public class DatabaseDemoApplication implements CommandLineRunner {
+//@SpringBootApplication this is to make sure that the JDBC code does not get fired
+public class DatabaseJdbcDemoApplication implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -20,7 +20,7 @@ public class DatabaseDemoApplication implements CommandLineRunner {
     PersonDAO dao;
 
     public static void main(String[] args) {
-        SpringApplication.run(DatabaseDemoApplication.class, args);
+        SpringApplication.run(DatabaseJdbcDemoApplication.class, args);
     }
 
     @Override
