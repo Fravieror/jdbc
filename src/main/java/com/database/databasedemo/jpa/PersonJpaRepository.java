@@ -21,4 +21,8 @@ public class PersonJpaRepository {
     public Person update(Person person){
         return entityManager.merge(person); // If exist the Id into person update if not insert
     }
+    public void deleteByID(int id){
+        Person person = findByID(id);
+        entityManager.remove(person);
+    }
 }
