@@ -9,6 +9,7 @@
 --    primary key(id)
 --);
 
+--SPRINGBOOT AUTOCONFIGURATION CREATES THE TABLES
 
 insert into person (id, name, location, birth_date)
 values (10001, 'Ranga', 'Hyderabad', sysdate()),
@@ -16,3 +17,6 @@ values (10001, 'Ranga', 'Hyderabad', sysdate()),
 (10003, 'James', 'New York', sysdate()),
 (10004, 'Peter', 'Amsterdam', sysdate()),
 (10005, 'Javier', 'Bogotá', sysdate());
+
+
+insert into course (id, name) values (1, 'Java')

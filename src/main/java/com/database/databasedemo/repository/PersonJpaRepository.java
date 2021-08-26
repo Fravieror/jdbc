@@ -1,7 +1,6 @@
-package com.database.databasedemo.jpa;
+package com.database.databasedemo.repository;
 
 import com.database.databasedemo.entity.Person;
-import com.database.databasedemo.jdbc.PersonDAO;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
