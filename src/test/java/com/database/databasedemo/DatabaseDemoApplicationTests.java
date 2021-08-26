@@ -1,7 +1,13 @@
 package com.database.databasedemo;
 
+import com.database.databasedemo.entity.Course;
 import com.database.databasedemo.entity.Person;
+import com.database.databasedemo.repository.CourseRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
@@ -17,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 @SpringBootTest
 class DatabaseDemoApplicationTests {
 
+	@Autowired
+	CourseRepository courseRepository;
+
 	@Test
 	void contextLoads() {
 		Person person = new Person(123456, "Name", "description", new Date());
@@ -26,6 +35,13 @@ class DatabaseDemoApplicationTests {
 		assertFalse(true);
 		assertNotNull(null);
 		assertNull(null);
+	}
+
+	@Test
+	@DisplayName("Test find course by id")
+	public void FindCourseById(){
+		Course course = courseRepository.findById(1L);
+		assertEquals("Java", course.getName());
 	}
 
 }
