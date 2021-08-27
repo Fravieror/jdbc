@@ -9,6 +9,7 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -45,6 +46,7 @@ class DatabaseDemoApplicationTests {
 	}
 
 	@Test
+	@DirtiesContext // This reset the data of DB to its initial state after the test ends.
 	public void deleteCourseById(){
 		courseRepository.deleteById(2L);
 		assertNull(courseRepository.findById(2L));
