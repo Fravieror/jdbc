@@ -19,4 +19,5 @@ values (10001, 'Ranga', 'Hyderabad', sysdate()),
 (10005, 'Javier', 'Bogotá', sysdate());
 
 
-insert into course (id, name) values (1, 'Java')
+insert into course (id, name) values (1, 'Java'),
+(2, 'Python')

@@ -32,16 +32,22 @@ class DatabaseDemoApplicationTests {
 		int actual = person.getId();
 		assertEquals(123456, actual);
 		assertTrue(true);
-		assertFalse(true);
-		assertNotNull(null);
+		assertFalse(false);
+		assertNotNull(true);
 		assertNull(null);
 	}
 
 	@Test
 	@DisplayName("Test find course by id")
-	public void FindCourseById(){
+	public void findCourseById(){
 		Course course = courseRepository.findById(1L);
 		assertEquals("Java", course.getName());
+	}
+
+	@Test
+	public void deleteCourseById(){
+		courseRepository.deleteById(2L);
+		assertNull(courseRepository.findById(2L));
 	}
 
 }
