@@ -1,10 +1,11 @@
 package com.database.databasedemo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@NamedQueries(value = {@NamedQuery(name = "query_get_all_courses", query = "select c from Course c"),
+        @NamedQuery(name = "query_get_like", query = "select c from Course c where name like '%av%'")}) // Set a lot of named queries
+//@NamedQuery(name = "query_get_all_courses", query = "select c from Course c") // Create query into entity only one
 public class Course {
     @Id
     @GeneratedValue // Auto incremental

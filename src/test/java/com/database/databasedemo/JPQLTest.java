@@ -28,6 +28,12 @@ public class JPQLTest {
     }
 
     @Test
+    public void findWithNamedQueryAll() { // Makes consult with query stored in the entity
+        List result = entityManager.createNamedQuery("query_get_all_courses").getResultList(); // JPQL in action. is a sensible language. take care entities' Uppercase
+        logger.info("select c from course c -> {}", result);
+    }
+
+    @Test
     public void findAll_typed() {
         TypedQuery<Course> query = entityManager.createQuery("select c from Course c", Course.class); // This is using a caster to include all result in typed query
         logger.info("select c from course c -> {}", query.getResultList());
