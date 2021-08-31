@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -45,4 +46,12 @@ public class JPQLTest {
         logger.info("select c from Course c where name like '%av%' -> {}", query.getResultList());
     }
 
+
+    @Test
+    public void native_queries_with_named_parameter() {
+        Query query = entityManager.createNativeQuery("select * from course where id = :id", Course.class);
+        query.setParameter("id", 2);
+        List resultList = query.getResultList();
+        logger.info("select * from course where id = :id -> {}", resultList);
+    }
 }
