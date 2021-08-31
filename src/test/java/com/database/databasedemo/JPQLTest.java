@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -53,5 +54,14 @@ public class JPQLTest {
         query.setParameter("id", 2);
         List resultList = query.getResultList();
         logger.info("select * from course where id = :id -> {}", resultList);
+    }
+
+    @Test
+    @Transactional // To avoid transactional required exception
+    public void native_query_update() {
+        Query query = entityManager.createNativeQuery("update course set name = 'Go :=' where id = :id", Course.class);
+        query.setParameter("id", 2);
+        int rowsAffected = query.executeUpdate();
+        logger.info("update course set name = 'Go :=' where id = :id - Rows updated -> {}", rowsAffected);
     }
 }
