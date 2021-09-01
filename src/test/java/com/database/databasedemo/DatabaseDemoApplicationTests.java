@@ -3,14 +3,16 @@ package com.database.databasedemo;
 import com.database.databasedemo.entity.Course;
 import com.database.databasedemo.entity.Person;
 import com.database.databasedemo.repository.CourseRepository;
+import com.database.databasedemo.repository.StudentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -24,8 +26,17 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 @SpringBootTest
 class DatabaseDemoApplicationTests {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Autowired
 	CourseRepository courseRepository;
+
+	@Autowired
+	StudentRepository studentRepository;
+
+
+	@Autowired
+	EntityManager em;
 
 	@Test
 	void contextLoads() {
@@ -51,5 +62,13 @@ class DatabaseDemoApplicationTests {
 		courseRepository.deleteById(2L);
 		assertNull(courseRepository.findById(2L));
 	}
+
+	@Test
+	public void retrieveStudentAndPassportDetails(){ // Eager, always one to one is eager
+		Person person = em.find(Person.class, 10001);
+		logger.info("person -> {}", person);
+		logger.info("passport -> {}", person.getPassport());
+	}
+
 
 }

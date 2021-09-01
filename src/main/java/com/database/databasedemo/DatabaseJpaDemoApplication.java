@@ -3,6 +3,7 @@ package com.database.databasedemo;
 import com.database.databasedemo.entity.Person;
 import com.database.databasedemo.repository.CourseRepository;
 import com.database.databasedemo.repository.PersonJpaRepository;
+import com.database.databasedemo.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class DatabaseJpaDemoApplication implements CommandLineRunner {
     @Autowired // Auto-inject the dependency
     private CourseRepository courseRepository;  // It Instantiates repository
 
+    @Autowired // Auto-inject the dependency
+    private StudentRepository studentRepository;  // It Instantiates repository
+
     public static void main(String[] args) {
         SpringApplication.run(DatabaseJpaDemoApplication.class, args);
     }
@@ -36,5 +40,7 @@ public class DatabaseJpaDemoApplication implements CommandLineRunner {
         logger.info("All persons -> {}", repository.findAll().toString());
 
         logger.info("Course id 1 -> {}", courseRepository.findById(1L).toString());
+        studentRepository.saveStudentWithPassport();
+
     }
 }

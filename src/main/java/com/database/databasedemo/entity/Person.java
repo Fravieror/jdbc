@@ -15,6 +15,8 @@ public class Person {
     private String name;
     private String location;
     private Date birthDate;
+    @OneToOne
+    private Passport passport;
 
     //You need a constructor without arguments
     public Person() {
@@ -65,6 +67,14 @@ public class Person {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
     }
 
     @Override
