@@ -15,7 +15,7 @@ public class Person {
     private String name;
     private String location;
     private Date birthDate;
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     private Passport passport;
 
     //You need a constructor without arguments

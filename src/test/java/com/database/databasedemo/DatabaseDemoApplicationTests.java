@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -64,10 +65,11 @@ class DatabaseDemoApplicationTests {
 	}
 
 	@Test
+	@Transactional // The session is kill only at the end of the test
 	public void retrieveStudentAndPassportDetails(){ // Eager, always one to one is eager
 		Person person = em.find(Person.class, 10001);
 		logger.info("person -> {}", person);
-		logger.info("passport -> {}", person.getPassport());
+		logger.info("passport -> {}", person.getPassport()); // When you request details on lazy test hibernate executes another query to retrieve that information
 	}
 
 
