@@ -65,7 +65,8 @@ class DatabaseDemoApplicationTests {
 	}
 
 	@Test
-	@Transactional // The session is kill only at the end of the test
+	@Transactional // The session is kill only at the end of the test, when you want to perform more than one transaction you should use transaction.
+	// Adding this notation, you create a session or persistent context that manages all changes performed on database.
 	public void retrieveStudentAndPassportDetails(){ // Eager, always one to one is eager
 		Person person = em.find(Person.class, 10001);
 		logger.info("person -> {}", person);
