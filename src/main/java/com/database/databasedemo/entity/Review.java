@@ -1,15 +1,15 @@
 package com.database.databasedemo.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Review {
     @Id
     @GeneratedValue
     private Long id;
+
+    @ManyToOne // It has always eager fetching
+    private Course course;
 
     private String description;
     private String rating;

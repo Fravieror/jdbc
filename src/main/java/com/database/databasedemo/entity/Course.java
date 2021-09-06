@@ -1,6 +1,8 @@
 package com.database.databasedemo.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQueries(value = {@NamedQuery(name = "query_get_all_courses", query = "select c from Course c"),
@@ -39,4 +41,7 @@ public class Course {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    @OneToMany(mappedBy = "course") // It has always lazy fetching
+    private List<Review> reviews = new ArrayList<>();
 }
