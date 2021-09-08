@@ -13,13 +13,19 @@ public class Course {
     @GeneratedValue // Auto incremental
     private long id;
     private String name;
+    public Course(String name) { // Hibernate will provide the id
+        this.name = name;
+    }
+
+    @OneToMany(mappedBy = "course") // It has always lazy fetching
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "courses")// this become the entity in the owning side, with this only will generate one table
+    // to the relationship because if anyone of the entities is the owner side then JPA will create two tables.
+    private List<Person> persons = new ArrayList<>();
 
     /// This will be used for JPA to create the specific bean, It is mandatory for JPA
     protected Course() {
-    }
-
-    public Course(String name) { // Hibernate will provide the id
-        this.name = name;
     }
 
     public String getName() {
@@ -42,6 +48,19 @@ public class Course {
                 '}';
     }
 
-    @OneToMany(mappedBy = "course") // It has always lazy fetching
-    private List<Review> reviews = new ArrayList<>();
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void addPersons(Person person) {
+        this.persons.add(person);
+    }
 }

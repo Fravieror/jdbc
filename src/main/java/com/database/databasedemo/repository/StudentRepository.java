@@ -1,5 +1,6 @@
 package com.database.databasedemo.repository;
 
+import com.database.databasedemo.entity.Course;
 import com.database.databasedemo.entity.Passport;
 import com.database.databasedemo.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,16 @@ public class StudentRepository {
         entityManager.persist(person);
     }
 
+    // Way to insert in table relational many to many
+    public void insertStudentAndCourse(){
+        Person person = new Person("Santiago", "Bogota", new Date());
+        Course course = new Course("C#");
+        entityManager.persist(person);
+        entityManager.persist(course);
+
+        person.addCourses(course);
+        course.addPersons(person);
+
+        entityManager.persist(person);
+    }
 }

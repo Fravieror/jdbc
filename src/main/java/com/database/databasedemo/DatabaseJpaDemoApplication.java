@@ -41,6 +41,6 @@ public class DatabaseJpaDemoApplication implements CommandLineRunner {
 
         logger.info("Course id 1 -> {}", courseRepository.findById(1L).toString());
         studentRepository.saveStudentWithPassport();
-
+        studentRepository.insertStudentAndCourse();
     }
 }

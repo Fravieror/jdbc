@@ -1,7 +1,9 @@
 package com.database.databasedemo.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity // When you are using in-memory database it automatically creates this key for us.
 @Table(name="person") // This annotation indicates what is the name of the table in the DB.
@@ -17,6 +19,12 @@ public class Person {
     private Date birthDate;
     @OneToOne(fetch=FetchType.LAZY)
     private Passport passport;
+    @ManyToMany
+    @JoinTable(name = "PERSON_COURSE", // Name that JPA will use to create the table
+            joinColumns = @JoinColumn(name = "PERSON_ID"), // It gives the name to the column provenience from this table.
+            inverseJoinColumns = @JoinColumn(name = "COURSE_ID") // It gives the name to the column from the other table in join
+    )
+    private List<Course> courses = new ArrayList<>();
 
     //You need a constructor without arguments
     public Person() {
@@ -75,6 +83,14 @@ public class Person {
 
     public void setPassport(Passport passport) {
         this.passport = passport;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void addCourses(Course course) {
+        this.courses.add(course);
     }
 
     @Override
