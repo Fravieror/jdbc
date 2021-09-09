@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -64,4 +65,89 @@ public class JPQLTest {
         int rowsAffected = query.executeUpdate();
         logger.info("update course set name = 'Go :=' where id = :id - Rows updated -> {}", rowsAffected);
     }
+
+
+    @Test
+    // Criteria query does not use JPQL.
+    public void basic_criteria_query(){
+        // 1. Use criteria builder
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = cb.createQuery(Course.class);
+        // 2. define roots for tables which are involved in the query
+        Root<Course> courseRoot = query.from(Course.class);
+        // 3. Define predicates etc using Criteria builder
+        TypedQuery<Course> queryTyped = entityManager.createQuery(query.select(courseRoot));
+        List<Course> resultList = queryTyped.getResultList();
+        logger.info("Typed query -> {}", resultList);
+
+
+    }
+
+    @Test
+    public void filter_criteria_query(){
+        // 1. Use criteria builder
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = cb.createQuery(Course.class);
+        // 2. define roots for tables which are involved in the query
+        Root<Course> courseRoot = query.from(Course.class);
+        // 3. Define predicates etc using Criteria builder
+        Predicate like = cb.like(courseRoot.get("name"), "%Java");
+        query.where(like);
+
+        TypedQuery<Course> queryTyped = entityManager.createQuery(query.select(courseRoot));
+        List<Course> resultList = queryTyped.getResultList();
+        logger.info("Typed query -> {}", resultList);
+    }
+
+    @Test
+    public void filter_multiple_tables_criteria_query(){
+        // 1. Use criteria builder
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = cb.createQuery(Course.class);
+        // 2. define roots for tables which are involved in the query
+        Root<Course> courseRoot = query.from(Course.class);
+        // 3. Define predicates etc using Criteria builder
+        Predicate empty = cb.isEmpty(courseRoot.get("persons"));
+        query.where(empty);
+
+        TypedQuery<Course> queryTyped = entityManager.createQuery(query.select(courseRoot));
+        List<Course> resultList = queryTyped.getResultList();
+        logger.info("Typed query -> {}", resultList);
+    }
+
+    @Test
+    public void join_criteria_query(){
+        // 1. Use criteria builder
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = cb.createQuery(Course.class);
+        // 2. define roots for tables which are involved in the query
+        Root<Course> courseRoot = query.from(Course.class);
+        // 3. Define predicates etc using Criteria builder
+        Join<Object, Object> join = courseRoot.join("persons");
+
+
+        TypedQuery<Course> queryTyped = entityManager.createQuery(query.select(courseRoot));
+        List<Course> resultList = queryTyped.getResultList();
+        logger.info("Typed query -> {}", resultList);
+    }
+
+    @Test
+    public void left_join_criteria_query(){
+        // 1. Use criteria builder
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Course> query = cb.createQuery(Course.class);
+        // 2. define roots for tables which are involved in the query
+        Root<Course> courseRoot = query.from(Course.class);
+        // 3. Define predicates etc using Criteria builder
+        Join<Object, Object> join = courseRoot.join("persons", JoinType.LEFT);
+
+
+        TypedQuery<Course> queryTyped = entityManager.createQuery(query.select(courseRoot));
+        List<Course> resultList = queryTyped.getResultList();
+        logger.info("Typed query -> {}", resultList);
+    }
+
+
+
+
 }
