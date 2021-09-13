@@ -73,5 +73,19 @@ class DatabaseDemoApplicationTests {
 		logger.info("passport -> {}", person.getPassport()); // When you request details on lazy test hibernate executes another query to retrieve that information
 	}
 
+	@Test
+	@org.springframework.transaction.annotation.Transactional // This adds cache first level to a simple transaction.
+	public void findById_firstLevelCacheDemo(){
+		Course course = courseRepository.findById(1L);
+		logger.info("First course retrieved -> {}", course);
+
+		// In this second query the data is stored in cache automatically
+		// and is not necessary lunch another query to the database.
+		// It has boundary of a simple transaction
+		Course course1 = courseRepository.findById(1L);
+		logger.info("First course retrieved -> {}", course1);
+
+		assertEquals("Java", course.getName());
+	}
 
 }

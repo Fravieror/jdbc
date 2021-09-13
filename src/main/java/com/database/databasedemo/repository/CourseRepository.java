@@ -2,6 +2,7 @@ package com.database.databasedemo.repository;
 
 import com.database.databasedemo.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
