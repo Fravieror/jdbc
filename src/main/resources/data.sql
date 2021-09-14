@@ -24,8 +24,8 @@ values (10001, 'Ranga', 'Hyderabad', sysdate(), 40001),
 (10004, 'Peter', 'Amsterdam', sysdate(), 40004),
 (10005, 'Javier', 'Bogotá', sysdate(), 40005);
 
-insert into course (id, name) values (1, 'Java'),
-(2, 'Python');
+insert into course (id, name, is_deleted) values (1, 'Java', false),
+(2, 'Python', false);
 
 insert into review(id, rating, description)
 values (50001, '1', '4654123'),
