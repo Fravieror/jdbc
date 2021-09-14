@@ -1,5 +1,6 @@
 package com.database.databasedemo;
 
+import com.database.databasedemo.entity.Address;
 import com.database.databasedemo.entity.Course;
 import com.database.databasedemo.entity.Person;
 import com.database.databasedemo.repository.CourseRepository;
@@ -87,5 +88,16 @@ class DatabaseDemoApplicationTests {
 
 		assertEquals("Java", course.getName());
 	}
+
+	@Test
+	@Transactional
+	public void setAddressDetails(){
+		Person person = em.find(Person.class, 10001);
+		person.setAddress(new Address("No", "No", "Bogota"));
+		em.flush(); // this push the change into the database.
+		logger.info("student -> {}", person);
+		logger.info("student -> {}", person);
+	}
+
 
 }

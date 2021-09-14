@@ -26,6 +26,9 @@ public class Person {
     )
     private List<Course> courses = new ArrayList<>();
 
+    @Embedded
+    private Address address;
+
     //You need a constructor without arguments
     public Person() {
     }
@@ -91,6 +94,14 @@ public class Person {
 
     public void addCourses(Course course) {
         this.courses.add(course);
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
